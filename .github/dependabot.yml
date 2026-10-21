@@ -5,6 +5,10 @@ updates:
     schedule: { interval: weekly }
     groups:
       dev: { dependency-type: development }
+    ignore:
+      # eslint-plugin-react 7.x peers on eslint ≤ 9; lift this once it supports eslint 10
+      - { dependency-name: eslint, update-types: [version-update:semver-major] }
+      - { dependency-name: "@eslint/js", update-types: [version-update:semver-major] }
   - package-ecosystem: github-actions
     directory: /
     schedule: { interval: monthly }
