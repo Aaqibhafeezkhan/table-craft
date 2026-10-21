@@ -11,7 +11,7 @@
 </p>
 
 <p align="center">
-  <a href="https://www.npmjs.com/package/tablecraft"><img src="https://img.shields.io/npm/v/tablecraft?color=e2b96f&label=npm" alt="npm version" /></a>
+  <a href="https://www.npmjs.com/package/@table-craft/table-craft"><img src="https://img.shields.io/npm/v/@table-craft/table-craft?color=e2b96f&label=npm" alt="npm version" /></a>
   <a href="https://github.com/table-craft/table-craft/actions/workflows/ci.yml"><img src="https://github.com/table-craft/table-craft/actions/workflows/ci.yml/badge.svg" alt="CI" /></a>
   <img src="https://img.shields.io/badge/types-included-3178c6" alt="TypeScript types included" />
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-green" alt="MIT license" /></a>
