@@ -1,19 +1,26 @@
 {
   "name": "create-tablecraft",
   "version": "0.1.0",
-  "description": "Scaffold a Tablecraft board or card game (Vite + React): npm create tablecraft",
+  "description": "Create a board game or card game project with Tablecraft in seconds: npm create tablecraft (Vite + React, dice, cards and multiplayer templates).",
   "license": "MIT",
   "type": "module",
   "keywords": [
     "tablecraft",
+    "create-tablecraft",
     "create",
     "scaffold",
+    "starter",
     "template",
     "board-game",
+    "boardgame",
     "card-game",
     "tabletop",
+    "game-engine",
+    "game-template",
+    "multiplayer",
     "vite",
-    "react"
+    "react",
+    "three.js"
   ],
   "homepage": "https://github.com/table-craft/table-craft/tree/main/packages/create-tablecraft#readme",
   "repository": {

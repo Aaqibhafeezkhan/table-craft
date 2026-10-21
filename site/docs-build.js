@@ -107,8 +107,9 @@ export function fillTemplate(template, pages, slug) {
   const page = pages.get(slug);
   return template
     .replace(/(src|href)="\.\//g, '$1="../')
-    .replace('<!--DOC:TITLE-->', esc(page.title))
-    .replace('<!--DOC:DESC-->', esc(page.lead.slice(0, 160)))
+    .replaceAll('<!--DOC:SLUG-->', slug)
+    .replaceAll('<!--DOC:TITLE-->', esc(page.title))
+    .replaceAll('<!--DOC:DESC-->', esc(page.lead.slice(0, 160)))
     .replace('<!--DOC:NAV-->', navHtml(pages, slug))
     .replace('<!--DOC:CONTENT-->', page.html)
     .replace('<!--DOC:TOC-->', tocHtml(page))

@@ -8,6 +8,7 @@ import { loadDocs, fillTemplate } from './docs-build.js';
 const src = fileURLToPath(new URL('../src', import.meta.url));
 const here = fileURLToPath(new URL('.', import.meta.url));
 const docsDir = fileURLToPath(new URL('../docs', import.meta.url));
+const SITE_URL = 'https://table-craft.github.io/table-craft/';
 
 // docs/*.md → /docs/<slug>.html. Dev: rendered per request (edit a .md, the page reloads). Build: one static page each,
 // filled into the Vite-processed docs.html template (so CSS/JS hashes are right), the template itself is dropped.
@@ -35,6 +36,9 @@ function docsPages() {
       const pages = loadDocs(docsDir);
       for (const slug of pages.keys()) this.emitFile({ type: 'asset', fileName: `docs/${slug}.html`, source: fillTemplate(String(tpl.source), pages, slug) });
       delete bundle['docs.html'];
+      // replay.html and play.html carry their content in the URL, so only the real pages go in the sitemap
+      const urls = ['', 'playground.html', 'examples.html', ...[...pages.keys()].map((s) => `docs/${s}.html`)];
+      this.emitFile({ type: 'asset', fileName: 'sitemap.xml', source: `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.map((u) => `  <url><loc>${SITE_URL}${u}</loc></url>`).join('\n')}\n</urlset>\n` });
     },
   };
 }
