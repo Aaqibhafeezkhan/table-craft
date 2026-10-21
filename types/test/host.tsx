@@ -8,16 +8,16 @@ import {
   createLocalMatch, connectRoom, createReplay, replayMatch, describeMove, analyzeBalance, sweepParameter, compareReports,
   auditViews, simulate, summarize, validate, LocalGameModule, Match, T, makeRandom, checkScene, PACE, botDelay,
   visibleFx, isBotId, setLocale, addLocale, VERSION,
-} from 'tablecraft';
-import type { BalanceReport, Fx, GameModule, MoveCtx, Snapshot, View, Zone } from 'tablecraft';
-import type { SceneObject, Hud, UiNode as UiNodeSpec, EndResult, Move } from 'tablecraft/game';
+} from '@table-craft/table-craft';
+import type { BalanceReport, Fx, GameModule, MoveCtx, Snapshot, View, Zone } from '@table-craft/table-craft';
+import type { SceneObject, Hud, UiNode as UiNodeSpec, EndResult, Move } from '@table-craft/table-craft/game';
 import {
   Tabletop, TablecraftGame, Lobby, useMatch, UiNode, ReplayViewer, buildStrings, LOCALES, StringsContext,
-} from 'tablecraft/react';
-import { TabletopWorld, TableAudio, layoutScene, footprint, cardSize, CARD_SIZES, TERRAIN, hexCenter, FaceStore, PRESETS, fontsReady } from 'tablecraft/engine';
-import { mountGame, createLocalMatch as embedLocal } from 'tablecraft/embed';
-import * as server from 'tablecraft/server';
-import { createTablecraftMcp } from 'tablecraft/mcp';
+} from '@table-craft/table-craft/react';
+import { TabletopWorld, TableAudio, layoutScene, footprint, cardSize, CARD_SIZES, TERRAIN, hexCenter, FaceStore, PRESETS, fontsReady } from '@table-craft/table-craft/engine';
+import { mountGame, createLocalMatch as embedLocal } from '@table-craft/table-craft/embed';
+import * as server from '@table-craft/table-craft/server';
+import { createTablecraftMcp } from '@table-craft/table-craft/mcp';
 
 // ------------------------------------------------------------------ a typed game module in TypeScript
 

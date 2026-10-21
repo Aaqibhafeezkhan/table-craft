@@ -4,20 +4,20 @@ Three levels, pick the one that fits:
 
 | | Import | You get |
 |---|---|---|
-| **Game** | `tablecraft/react` → `<TablecraftGame>` | lobby (seats, bots, start), table, end screen |
-| **Table** | `tablecraft/react` → `<Tabletop>` | the 3D table + HUD for a view you provide |
-| **Engine** | `tablecraft/engine` → `TabletopWorld` | three.js scene, layout, animation, dice — bring your own UI |
+| **Game** | `@table-craft/table-craft/react` → `<TablecraftGame>` | lobby (seats, bots, start), table, end screen |
+| **Table** | `@table-craft/table-craft/react` → `<Tabletop>` | the 3D table + HUD for a view you provide |
+| **Engine** | `@table-craft/table-craft/engine` → `TabletopWorld` | three.js scene, layout, animation, dice — bring your own UI |
 
-No React in your app? `tablecraft/embed` → `mountGame(element, props)` renders `<TablecraftGame>` for you.
+No React in your app? `@table-craft/table-craft/embed` → `mountGame(element, props)` renders `<TablecraftGame>` for you.
 
-Always import the styles once: `import 'tablecraft/style.css'`.
+Always import the styles once: `import '@table-craft/table-craft/style.css'`.
 
 ## Matches
 
 A **MatchClient** is the source of truth the UI talks to. Two implementations, one interface:
 
 ```js
-import { createLocalMatch, connectRoom } from 'tablecraft';
+import { createLocalMatch, connectRoom } from '@table-craft/table-craft';
 
 // in the browser, with bots — no server
 const local = createLocalMatch({
@@ -124,8 +124,8 @@ A local match hands you its recording with `client.record()` (`Match#record()` o
 the [playground](https://table-craft.github.io/table-craft/playground.html)'s **Share replay** does exactly that.
 
 ```jsx
-import { createReplay } from 'tablecraft';
-import { ReplayViewer } from 'tablecraft/react';
+import { createReplay } from '@table-craft/table-craft';
+import { ReplayViewer } from '@table-craft/table-craft/react';
 
 const replay = createReplay({ source, seed, players, options, moves, startedAt, viewer: 'p1', assets });
 <ReplayViewer replay={replay} locale="en" height="80vh" />
@@ -167,13 +167,13 @@ Card faces use `scene.theme.font` / `scene.theme.serif`. Lighting and table come
 <TablecraftGame client={m} strings={{ yourTurn: 'À vous !', verbs: { play: (n) => (n > 1 ? `a joué ${n} cartes` : 'a joué une carte') } }} />
 ```
 
-Engine messages (move errors, referee report) are separate: `setLocale('tr')` / `addLocale(name, dict)` from `tablecraft`
-(browser) or `configure({ locale })` from `tablecraft/server`.
+Engine messages (move errors, referee report) are separate: `setLocale('tr')` / `addLocale(name, dict)` from `@table-craft/table-craft`
+(browser) or `configure({ locale })` from `@table-craft/table-craft/server`.
 
 ## Engine
 
 ```js
-import { TabletopWorld, TableAudio } from 'tablecraft/engine';
+import { TabletopWorld, TableAudio } from '@table-craft/table-craft/engine';
 
 const world = new TabletopWorld(canvas, {
   audio: new TableAudio(),

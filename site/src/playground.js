@@ -2,7 +2,7 @@
 // URLs: playground.html?example=<folder>  ·  playground.html#code=<deflated source>  (Share)
 import '@fontsource-variable/inter';
 import '@fontsource/playfair-display/700.css';
-import 'tablecraft/style.css';
+import '@table-craft/table-craft/style.css';
 import './site.css';
 import './app.css';
 import { createEditor } from './pg/editor.js';
@@ -85,7 +85,7 @@ async function run() {
   fillPlayers(meta);
   updateLabHints(mod);
   status('Loading the table…');
-  embed = embed || await import('tablecraft/embed');
+  embed = embed || await import('@table-craft/table-craft/embed');
   if (seq !== runSeq) return;
   teardown();
   const n = Number($('pg-players').value) || 2;

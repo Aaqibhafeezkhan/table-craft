@@ -146,11 +146,11 @@ editor) completes `T.*`, `ctx.*`, scene objects, HUD nodes and fx — and, with 
 
 ```js
 // @ts-check
-/// <reference types="tablecraft/game" />
+/// <reference types="@table-craft/table-craft/game" />
 
 /** @typedef {{ players: { id: string, name: string, score: number }[], turn: number }} State */
 
-/** @type {import('tablecraft/game').GameModule<State>} */
+/** @type {import('@table-craft/table-craft/game').GameModule<State>} */
 module.exports = {
   setup({ players }) { return { players: players.map((p) => ({ id: p.id, name: p.name, score: 0 })), turn: 0 }; },
   moves: { /* ctx.args, ctx.roll, ctx.fx … are typed */ },
@@ -161,10 +161,10 @@ module.exports = {
 The reference declares the sandbox globals (`T`, `clone`, `module`); the import gives the contract types (`GameModule`,
 `View`, `SceneObject`, `Fx`, `Move<State, Args>`, …). `@type` on `module.exports` types every parameter but only
 loosely checks what functions return; for full checking of `view()` scenes and `endIf()` results use
-`module.exports = /** @satisfies {import('tablecraft/game').GameModule<State>} */ ({ … });` instead. Annotate arrays
-you build before returning them (`/** @type {import('tablecraft/game').SceneObject[]} */ const objects = [];`), or
-plain JavaScript widens `'row'` to `string`. TypeScript hosts get the same types from `tablecraft`,
-`tablecraft/server`, `tablecraft/react`, `tablecraft/engine` and `tablecraft/embed` (`tablecraft/react` needs
+`module.exports = /** @satisfies {import('@table-craft/table-craft/game').GameModule<State>} */ ({ … });` instead. Annotate arrays
+you build before returning them (`/** @type {import('@table-craft/table-craft/game').SceneObject[]} */ const objects = [];`), or
+plain JavaScript widens `'row'` to `string`. TypeScript hosts get the same types from `@table-craft/table-craft`,
+`@table-craft/table-craft/server`, `@table-craft/table-craft/react`, `@table-craft/table-craft/engine` and `@table-craft/table-craft/embed` (`@table-craft/table-craft/react` needs
 `@types/react`).
 
 ## Writing modules that read well

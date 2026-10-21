@@ -1,8 +1,8 @@
 import { createRoot } from 'react-dom/client';
 import { io } from 'socket.io-client';
-import { connectRoom } from 'tablecraft';
-import { TablecraftGame } from 'tablecraft/react';
-import 'tablecraft/style.css';
+import { connectRoom } from '@table-craft/table-craft';
+import { TablecraftGame } from '@table-craft/table-craft/react';
+import '@table-craft/table-craft/style.css';
 
 const room = new URLSearchParams(location.search).get('room');
 const name = localStorage.getItem('name') || prompt('Your name?') || 'Guest';

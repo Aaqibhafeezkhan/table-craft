@@ -1,7 +1,7 @@
 import { createRoot } from 'react-dom/client';
-import { createLocalMatch } from 'tablecraft';
-import { TablecraftGame } from 'tablecraft/react';
-import 'tablecraft/style.css';
+import { createLocalMatch } from '@table-craft/table-craft';
+import { TablecraftGame } from '@table-craft/table-craft/react';
+import '@table-craft/table-craft/style.css';
 // The game module is passed as text: Tablecraft runs it in its own sandbox, not through the bundler.
 import source from './game.js?raw';
 

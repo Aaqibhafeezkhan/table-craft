@@ -5,7 +5,7 @@ Claude Desktop, or any MCP client — can write a game, check it with the refere
 through a match move by move. It runs locally over stdio and has no dependencies beyond Tablecraft itself.
 
 ```bash
-npx tablecraft mcp
+npx @table-craft/table-craft mcp
 ```
 
 ## Connect
@@ -15,12 +15,12 @@ npx tablecraft mcp
 ```json
 {
   "mcpServers": {
-    "tablecraft": { "command": "npx", "args": ["-y", "tablecraft", "mcp"] }
+    "tablecraft": { "command": "npx", "args": ["-y", "@table-craft/table-craft", "mcp"] }
   }
 }
 ```
 
-or from the terminal: `claude mcp add tablecraft -- npx -y tablecraft mcp`.
+or from the terminal: `claude mcp add tablecraft -- npx -y @table-craft/table-craft mcp`.
 
 **Claude Desktop** — add the same entry under `mcpServers` in `claude_desktop_config.json`.
 

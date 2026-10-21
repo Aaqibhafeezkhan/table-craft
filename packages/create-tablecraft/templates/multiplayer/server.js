@@ -10,7 +10,7 @@ import path from 'node:path';
 import { createServer } from 'node:http';
 import { fileURLToPath } from 'node:url';
 import { Server } from 'socket.io';
-import { createRoomServer } from 'tablecraft/server';
+import { createRoomServer } from '@table-craft/table-craft/server';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const port = Number(process.env.PORT || 3001);

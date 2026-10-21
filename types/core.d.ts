@@ -1,4 +1,4 @@
-// Isomorphic core shared by `tablecraft` and `tablecraft/server`: loaded modules, the Match state machine, pacing,
+// Isomorphic core shared by `@table-craft/table-craft` and `@table-craft/table-craft/server`: loaded modules, the Match state machine, pacing,
 // randomness, scene checks, the referee, the balance lab, the view audit, replays and engine messages.
 import type {
   Action, Deadline, EndResult, Fx, Meta, MoveArgs, Player, PlayerId, Random, SeatDef, View,

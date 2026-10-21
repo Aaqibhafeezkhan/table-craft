@@ -12,7 +12,7 @@ import { fileURLToPath } from 'node:url';
 import { Server } from 'socket.io';
 import { createServer as createVite } from 'vite';
 import react from '@vitejs/plugin-react';
-import { createRoomServer } from 'tablecraft/server';
+import { createRoomServer } from '@table-craft/table-craft/server';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const gameFile = process.argv[2] || process.env.GAME || path.join(here, '../treasure-road/game.js');
@@ -37,7 +37,7 @@ const code = rooms.createRoom({ source: fs.readFileSync(path.resolve(gameFile), 
 
 http.listen(port, () => console.log(`Tablecraft room ${code} → http://localhost:${port}/?room=${code}`));
 
-// inside this repo `tablecraft` resolves to the source; in your app it is just the npm package
+// inside this repo `@table-craft/table-craft` resolves to the source; in your app it is just the npm package
 function aliases() {
   const src = path.join(here, '../../src');
   return [

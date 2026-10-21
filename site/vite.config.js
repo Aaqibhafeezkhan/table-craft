@@ -45,10 +45,10 @@ export default defineConfig({
   plugins: [react(), docsPages()],
   resolve: {
     alias: [
-      { find: /^tablecraft\/embed$/, replacement: `${src}/embed.js` },
-      { find: /^tablecraft\/react$/, replacement: `${src}/react/index.js` },
-      { find: /^tablecraft\/style\.css$/, replacement: `${src}/react/tablecraft.css` },
-      { find: /^tablecraft$/, replacement: `${src}/index.js` },
+      { find: /^@table-craft\/table-craft\/embed$/, replacement: `${src}/embed.js` },
+      { find: /^@table-craft\/table-craft\/react$/, replacement: `${src}/react/index.js` },
+      { find: /^@table-craft\/table-craft\/style\.css$/, replacement: `${src}/react/tablecraft.css` },
+      { find: /^@table-craft\/table-craft$/, replacement: `${src}/index.js` },
     ],
   },
   server: {

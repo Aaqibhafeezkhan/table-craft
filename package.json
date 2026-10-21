@@ -1,5 +1,5 @@
 {
-  "name": "tablecraft",
+  "name": "@table-craft/table-craft",
   "version": "0.1.0",
   "description": "Server-authoritative 3D tabletop engine: write the rules of any board or card game as one JavaScript module and get a physics-based, multiplayer, bot-ready table.",
   "license": "MIT",

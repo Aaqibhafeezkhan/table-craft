@@ -1,7 +1,7 @@
 # Server
 
-`tablecraft/server` is the Node side: the sandboxed runtime, the referee and a socket.io room server. It is plain ESM
-and also loads with `require('tablecraft/server')` on Node ≥ 22.12.
+`@table-craft/table-craft/server` is the Node side: the sandboxed runtime, the referee and a socket.io room server. It is plain ESM
+and also loads with `require('@table-craft/table-craft/server')` on Node ≥ 22.12.
 
 ## Exports
 
@@ -18,8 +18,8 @@ and also loads with `require('tablecraft/server')` on Node ≥ 22.12.
 `simulate`, `validate`, `analyzeBalance`, `sweepParameter` and `audit` take module source text or a loaded
 `GameModule`. `simulateAsync` and `analyzeBalanceAsync` take **source text only** (it is sent to the worker thread).
 
-`tablecraft/server` has no `setLocale` (use `configure`), `createKit`, `createReplay` or `replayMatch` — import those from
-`tablecraft`.
+`@table-craft/table-craft/server` has no `setLocale` (use `configure`), `createKit`, `createReplay` or `replayMatch` — import those from
+`@table-craft/table-craft`.
 
 ## Room server
 
@@ -27,7 +27,7 @@ and also loads with `require('tablecraft/server')` on Node ≥ 22.12.
 import fs from 'node:fs';
 import { createServer } from 'node:http';
 import { Server } from 'socket.io';
-import { createRoomServer } from 'tablecraft/server';
+import { createRoomServer } from '@table-craft/table-craft/server';
 
 const http = createServer(app);
 const io = new Server(http, { cors: { origin: ['https://my-site.com'] } });
@@ -83,7 +83,7 @@ Namespace of your choice (the client defaults to `/tablecraft`). Handshake `auth
 The state machine behind both hosts — use it to build your own (a database-backed host, a Discord bot…):
 
 ```js
-import { GameModule, Match, botDelay, visibleFx } from 'tablecraft/server';
+import { GameModule, Match, botDelay, visibleFx } from '@table-craft/table-craft/server';
 
 const match = new Match(new GameModule(source), { content, pace: 'normal' });
 match.join('u1', { name: 'Ada', seat: null });
@@ -102,7 +102,7 @@ setTimeout(runBots, botDelay(match.pace, fx));
 ## Runtime
 
 ```js
-import { GameModule } from 'tablecraft/server';
+import { GameModule } from '@table-craft/table-craft/server';
 const mod = new GameModule(source, { timeout: 500 });   // ms per call
 mod.setup(players, seed, options, now)      // → { state, rng, fx }
 mod.move(state, name, { playerId, player, args, now }, rng)   // → { state, rng, fx } | { error }

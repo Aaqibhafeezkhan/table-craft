@@ -1,8 +1,8 @@
 import { createRoot } from 'react-dom/client';
 import { io } from 'socket.io-client';
-import { connectRoom } from 'tablecraft';
-import { TablecraftGame } from 'tablecraft/react';
-import 'tablecraft/style.css';
+import { connectRoom } from '@table-craft/table-craft';
+import { TablecraftGame } from '@table-craft/table-craft/react';
+import '@table-craft/table-craft/style.css';
 
 // Room server URL: same origin by default (Vite proxies /socket.io to `npm run server`).
 // Set VITE_SERVER_URL when the room server lives elsewhere, e.g. VITE_SERVER_URL=https://rooms.example.com.

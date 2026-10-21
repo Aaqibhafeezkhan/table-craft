@@ -1,6 +1,6 @@
 // The game-module contract: everything a game file exports and everything the runtime hands it.
-// Pure types, no globals. Game files get these through `tablecraft/game` (which also declares `T`, `clone`
-// and `module`); hosts get them re-exported from `tablecraft` and `tablecraft/server`.
+// Pure types, no globals. Game files get these through `@table-craft/table-craft/game` (which also declares `T`, `clone`
+// and `module`); hosts get them re-exported from `@table-craft/table-craft` and `@table-craft/table-craft/server`.
 // See docs/game-module.md, docs/scene.md, docs/hud.md and docs/fx.md.
 
 // ------------------------------------------------------------------ basics
@@ -999,5 +999,5 @@ export interface GameModule<S = any, C = any> {
   invariants?(state: S): Array<string | null | undefined | false>;
 }
 
-/** Shorthand for annotating a single move in JS: `/** @type {import('tablecraft/game').Move<State, { card: string }>} *\/`. */
+/** Shorthand for annotating a single move in JS: `/** @type {import('@table-craft/table-craft/game').Move<State, { card: string }>} *\/`. */
 export type Move<S = any, Args = MoveArgs> = (state: S, ctx: MoveCtx<Args>) => S | MoveError;

@@ -1,6 +1,6 @@
 {
-  // Type tests: `npm run typecheck` (pretypecheck links types/test/node_modules/tablecraft to this package, so the
-  // tests resolve `tablecraft/*` and `/// <reference types="tablecraft/game" />` through package.json "exports" exactly
+  // Type tests: `npm run typecheck` (pretypecheck links types/test/node_modules/@table-craft/table-craft to this package, so the
+  // tests resolve `tablecraft/*` and `/// <reference types="@table-craft/table-craft/game" />` through package.json "exports" exactly
   // like an installed copy). Covers every entry point from a TS host app (test/host.tsx) and plain-JS game files with
   // `// @ts-check` (test/game*.js). Lines marked `@ts-expect-error` are mistakes the declarations must reject.
   "compilerOptions": {

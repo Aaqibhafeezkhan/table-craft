@@ -10,7 +10,7 @@ Any bundler that understands `?raw` imports or plain `fetch` works. With Vite:
 ```bash
 npm create vite@latest my-table -- --template react
 cd my-table
-npm install tablecraft three cannon-es
+npm install @table-craft/table-craft three cannon-es
 ```
 
 `react`, `react-dom`, `three` and `cannon-es` are peer dependencies — your app owns their versions.
@@ -84,9 +84,9 @@ Three rules make everything else work:
 
 ```jsx
 // src/App.jsx
-import { createLocalMatch } from 'tablecraft';
-import { TablecraftGame } from 'tablecraft/react';
-import 'tablecraft/style.css';
+import { createLocalMatch } from '@table-craft/table-craft';
+import { TablecraftGame } from '@table-craft/table-craft/react';
+import '@table-craft/table-craft/style.css';
 import source from './games/duel.js?raw';
 
 const match = createLocalMatch({ source, players: ['You', 'bot'] });
@@ -112,7 +112,7 @@ Click the glowing die. The bot answers after a short, readable pause; its roll s
 ```js
 // scripts/referee.mjs
 import fs from 'node:fs';
-import { simulate, summarize } from 'tablecraft/server';
+import { simulate, summarize } from '@table-craft/table-craft/server';
 
 const report = simulate(fs.readFileSync('src/games/duel.js', 'utf8'), { games: 200 });
 console.log(summarize(report));
@@ -133,7 +133,7 @@ See [Bots & referee](testing.md).
 import fs from 'node:fs';
 import { createServer } from 'node:http';
 import { Server } from 'socket.io';
-import { createRoomServer } from 'tablecraft/server';
+import { createRoomServer } from '@table-craft/table-craft/server';
 
 const http = createServer();
 const io = new Server(http, { cors: { origin: '*' } });
@@ -144,7 +144,7 @@ http.listen(3000, () => console.log(`room ${code}`));
 
 ```jsx
 import { io } from 'socket.io-client';
-import { connectRoom } from 'tablecraft';
+import { connectRoom } from '@table-craft/table-craft';
 
 const match = connectRoom({ io, url: 'http://localhost:3000', room: 'ABC123', name: 'Ada' });
 // <TablecraftGame client={match} />  — the lobby lets the host seat bots and start

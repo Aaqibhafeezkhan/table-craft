@@ -37,7 +37,7 @@
           <a class="btn" href="./playground.html">Open the playground</a>
           <a class="btn" href="./docs/getting-started.html">Get started</a>
         </div>
-        <div class="install"><code>npm install tablecraft</code><button class="copy" data-copy="npm install tablecraft" aria-label="Copy install command">Copy</button></div>
+        <div class="install"><code>npm install @table-craft/table-craft</code><button class="copy" data-copy="npm install @table-craft/table-craft" aria-label="Copy install command">Copy</button></div>
       </div>
       <div class="demo-frame" id="demo">
         <div class="demo-bar"><i></i><i></i><i></i><span>Treasure Road — you vs. a bot · runs entirely in your browser</span><a href="./play.html" title="Open full screen">⤢</a></div>
@@ -129,7 +129,7 @@ const match = connectRoom({ io, url, room: 'AB12CD', name: 'Ada' });
         <article><i>🌍</i><h3>Rooms you host</h3><p><code>createRoomServer()</code> on socket.io: lobby, seats, bots, sand timers, pacing. Your server, your data.</p></article>
         <article><i>🎧</i><h3>Sound &amp; atmosphere</h3><p>Procedural card, dice and coin sounds with room reverb, ambience and six lighting presets.</p></article>
         <article><i>⚛️</i><h3>React or not</h3><p><code>&lt;TablecraftGame&gt;</code>, <code>&lt;Tabletop&gt;</code> or <code>mountGame(el)</code> for any page. Themeable with CSS variables; English and Turkish built in.</p></article>
-        <article><i>✨</i><h3>AI-ready</h3><p><code>npx tablecraft mcp</code> lets Claude write a game, run the referee, audit every player's view and step through matches with you.</p></article>
+        <article><i>✨</i><h3>AI-ready</h3><p><code>npx @table-craft/table-craft mcp</code> lets Claude write a game, run the referee, audit every player's view and step through matches with you.</p></article>
       </div>
     </section>
 
@@ -143,9 +143,9 @@ const match = connectRoom({ io, url, room: 'AB12CD', name: 'Ada' });
         <button role="tab" data-tab="referee">Referee</button>
       </div>
       <div class="tabpanes">
-<pre data-pane="react" class="on"><code class="js">import { createLocalMatch } from 'tablecraft';
-import { TablecraftGame } from 'tablecraft/react';
-import 'tablecraft/style.css';
+<pre data-pane="react" class="on"><code class="js">import { createLocalMatch } from '@table-craft/table-craft';
+import { TablecraftGame } from '@table-craft/table-craft/react';
+import '@table-craft/table-craft/style.css';
 import source from './treasure-road.js?raw';
 
 const match = createLocalMatch({ source, players: ['You', 'bot', 'bot'] });
@@ -153,8 +153,8 @@ const match = createLocalMatch({ source, players: ['You', 'bot', 'bot'] });
 export default function App() {
   return &lt;TablecraftGame client={match} style={{ height: '100vh' }} /&gt;;
 }</code></pre>
-<pre data-pane="vanilla"><code class="js">import { mountGame, createLocalMatch } from 'tablecraft/embed';
-import 'tablecraft/style.css';
+<pre data-pane="vanilla"><code class="js">import { mountGame, createLocalMatch } from '@table-craft/table-craft/embed';
+import '@table-craft/table-craft/style.css';
 
 const source = await (await fetch('/games/treasure-road.js')).text();
 mountGame(document.getElementById('table'), {
@@ -164,7 +164,7 @@ mountGame(document.getElementById('table'), {
 <pre data-pane="server"><code class="js">import fs from 'node:fs';
 import { createServer } from 'node:http';
 import { Server } from 'socket.io';
-import { createRoomServer } from 'tablecraft/server';
+import { createRoomServer } from '@table-craft/table-craft/server';
 
 const http = createServer();
 const rooms = createRoomServer(new Server(http).of('/tablecraft'));
@@ -172,7 +172,7 @@ const code = rooms.createRoom({ source: fs.readFileSync('game.js', 'utf8') });
 
 http.listen(3000, () =&gt; console.log('room', code));
 // client: connectRoom({ io, url: 'http://localhost:3000', room: code, name })</code></pre>
-<pre data-pane="referee"><code class="js">import { simulate, summarize } from 'tablecraft/server';
+<pre data-pane="referee"><code class="js">import { simulate, summarize } from '@table-craft/table-craft/server';
 
 const report = simulate(source, { games: 200 });
 console.log(summarize(report));

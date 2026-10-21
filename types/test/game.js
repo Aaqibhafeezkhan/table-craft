@@ -1,5 +1,5 @@
 // @ts-check
-/// <reference types="tablecraft/game" />
+/// <reference types="@table-craft/table-craft/game" />
 /* global T */
 // A plain-JS game file written against the typed contract: the header above is all an author needs.
 // Four in a row on a 7×6 grid, with a pass-to-end-round turn order and a ranking at the end.
@@ -8,8 +8,8 @@
  * @typedef {{ id: string, name: string, color: string, wins: number }} Seat
  * @typedef {{
  *   players: Seat[],
- *   turn: import('tablecraft/game').TurnOrder,
- *   flow: import('tablecraft/game').Flow<'drop' | 'score'>,
+ *   turn: import('@table-craft/table-craft/game').TurnOrder,
+ *   flow: import('@table-craft/table-craft/game').Flow<'drop' | 'score'>,
  *   board: Record<string, string | null>,
  *   log: string[],
  *   winner: string | null,
@@ -30,7 +30,7 @@ function landing(s, col) {
   return null;
 }
 
-/** @type {import('tablecraft/game').GameModule<State>} */
+/** @type {import('@table-craft/table-craft/game').GameModule<State>} */
 module.exports = {
   meta: { name: 'Typed Four', minPlayers: 2, maxPlayers: 2, description: 'Type-test fixture.' },
 
@@ -47,7 +47,7 @@ module.exports = {
   },
 
   moves: {
-    /** @type {import('tablecraft/game').Move<State, { col: number }>} */
+    /** @type {import('@table-craft/table-craft/game').Move<State, { col: number }>} */
     drop(s, ctx) {
       if (T.turns.current(s.turn) !== ctx.playerId) return { error: 'Not your turn' };
       const cell = landing(s, Number(ctx.args.col));
@@ -67,7 +67,7 @@ module.exports = {
 
   view(s, { playerId }) {
     const myTurn = T.turns.current(s.turn) === playerId && !s.winner;
-    /** @type {import('tablecraft/game').SceneObject[]} */
+    /** @type {import('@table-craft/table-craft/game').SceneObject[]} */
     const objects = [];
     for (const k of CELLS) {
       const owner = s.board[k];

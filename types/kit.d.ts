@@ -1,4 +1,4 @@
-// The rules kit `T`: a global inside every game module, and `import { T } from 'tablecraft'` outside.
+// The rules kit `T`: a global inside every game module, and `import { T } from '@table-craft/table-craft'` outside.
 // Helpers mutate the plain arrays/objects you pass (your state owns them) and take the `random` you give them.
 // See docs/rules-kit.md and docs/mechanics.md.
 import type { Action, Deadline, MoveArgs, PlayerId, Random, RankRow, RollResult } from './contract.js';

@@ -1,7 +1,7 @@
 // Full-screen table: ?game=<example folder>&players=3&pace=fast&lang=tr — any folder in examples/ works.
 import { createElement } from 'react';
-import { mountGame, createLocalMatch } from 'tablecraft/embed';
-import 'tablecraft/style.css';
+import { mountGame, createLocalMatch } from '@table-craft/table-craft/embed';
+import '@table-craft/table-craft/style.css';
 import './app.css';
 import { DEFAULT_EXAMPLE, hasExample, loadSource, metaOf, playerRange } from './examples.js';
 import { replayLink, copyText, toast } from './share.js';

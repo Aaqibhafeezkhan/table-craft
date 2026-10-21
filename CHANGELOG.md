@@ -13,8 +13,8 @@ and the project uses [Semantic Versioning](https://semver.org/). Until 1.0, mino
   `T.roles`, `T.market`, `T.draft`, `T.deckbuild`, `T.tricks`, `T.dice` and `T.bag` (with exact odds), `T.grid` (square
   grids, line of sight, n-in-a-row, polyominoes), `T.score` (rankings with tie-breakers, ready `endIf` results),
   `T.sets`, `T.area` (majorities with tie rules). Identical in the host and the sandbox.
-- **TypeScript declarations** for every entry point and the game-module contract; `tablecraft/game` gives plain-JS game
-  files autocomplete for `T`, `ctx`, scenes, HUD and fx (`/// <reference types="tablecraft/game" />`).
+- **TypeScript declarations** for every entry point and the game-module contract; `@table-craft/table-craft/game` gives plain-JS game
+  files autocomplete for `T`, `ctx`, scenes, HUD and fx (`/// <reference types="@table-craft/table-craft/game" />`).
 - **`npm create tablecraft`** — starter projects (`dice`, `cards`, `multiplayer`), published as `create-tablecraft`.
 - **Playground** on the site: live editor, referee and visual balance report in a worker, share links; an **examples
   gallery**; shareable **replay links**. Code from a shared link only runs after the reader presses Run.

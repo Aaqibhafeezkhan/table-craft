@@ -1,6 +1,6 @@
 // Every examples/<folder>/game.js, discovered at build time — a new example folder shows up in the gallery, the
 // playground picker, play.html?game=<folder> and replays without touching the site.
-import { LocalGameModule } from 'tablecraft';
+import { LocalGameModule } from '@table-craft/table-craft';
 
 const sources = import.meta.glob('../../examples/*/game.js', { query: '?raw', import: 'default' });
 const thumbs = import.meta.glob('../../examples/*/thumb.{png,jpg,webp}', { query: '?url', import: 'default', eager: true });

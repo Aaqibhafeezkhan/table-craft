@@ -47,7 +47,7 @@ of game-engine work. Tablecraft sits in between: **you write the rules, it build
 - **Followable.** The Spotlight puts every card another player reveals or plays on stage; the game log keeps the whole story.
 - **Play anywhere.** In the browser against bots (no server), or on your own socket.io room server for real multiplayer.
 - **Typed.** Hand-written TypeScript declarations: autocomplete for the module contract, the scene and `T` — even in plain JS.
-- **AI-ready.** `npx tablecraft mcp` gives Claude (or any MCP client) tools to write, referee, audit and step through games.
+- **AI-ready.** `npx @table-craft/table-craft mcp` gives Claude (or any MCP client) tools to write, referee, audit and step through games.
 
 ## 60-second start
 
@@ -62,13 +62,13 @@ edit a game on the left, play it on the right, run the referee and the balance l
 ### Add it to an existing app
 
 ```bash
-npm install tablecraft react react-dom three cannon-es
+npm install @table-craft/table-craft react react-dom three cannon-es
 ```
 
 ```jsx
-import { createLocalMatch } from 'tablecraft';
-import { TablecraftGame } from 'tablecraft/react';
-import 'tablecraft/style.css';
+import { createLocalMatch } from '@table-craft/table-craft';
+import { TablecraftGame } from '@table-craft/table-craft/react';
+import '@table-craft/table-craft/style.css';
 import source from './treasure-road.js?raw'; // any game module, as text
 
 const match = createLocalMatch({ source, players: ['Ada', 'bot', 'bot'] });
@@ -83,7 +83,7 @@ race against two bots. When you want friends at the table, swap one line:
 
 ```js
 import { io } from 'socket.io-client';
-import { connectRoom } from 'tablecraft';
+import { connectRoom } from '@table-craft/table-craft';
 
 const match = connectRoom({ io, url: 'https://your-server', room: 'AB12CD', name: 'Ada' });
 ```
@@ -91,7 +91,7 @@ const match = connectRoom({ io, url: 'https://your-server', room: 'AB12CD', name
 …and run a room server ([full example](examples/server/server.js)):
 
 ```js
-import { createRoomServer } from 'tablecraft/server';
+import { createRoomServer } from '@table-craft/table-craft/server';
 
 const rooms = createRoomServer(io.of('/tablecraft'));
 const code = rooms.createRoom({ source: fs.readFileSync('game.js', 'utf8') });
@@ -149,14 +149,14 @@ return T.score.result(s.players, { keys: ['score', '-penalties'] });
 
 | Import | What it is |
 |---|---|
-| `tablecraft` | Isomorphic core: `createLocalMatch`, `connectRoom`, `Match`, the rules kit `T`, referee, seeded RNG |
-| `tablecraft/react` | `<TablecraftGame>` (lobby + table + end screen), `<Tabletop>`, `useMatch()` |
-| `tablecraft/embed` | `mountGame(element, props)` for pages without React code |
-| `tablecraft/engine` | The framework-free three.js table (`TabletopWorld`) for custom UIs |
-| `tablecraft/server` | Node: `node:vm` runtime, `createRoomServer`, referee (`simulate`, `validate`), balance lab (`analyzeBalance`, `sweepParameter`), view `audit`, worker-thread variants (`simulateAsync`, `analyzeBalanceAsync`) |
-| `tablecraft/style.css` | HUD styles (themeable with `--tc-*` custom properties) |
-| `tablecraft/game` | Types only: `/// <reference types="tablecraft/game" />` in a game file gives autocomplete for `T`, `ctx` and the scene |
-| `tablecraft/mcp` · `npx tablecraft mcp` | MCP server for AI assistants; `npx tablecraft validate / simulate / audit` from the terminal |
+| `@table-craft/table-craft` | Isomorphic core: `createLocalMatch`, `connectRoom`, `Match`, the rules kit `T`, referee, seeded RNG |
+| `@table-craft/table-craft/react` | `<TablecraftGame>` (lobby + table + end screen), `<Tabletop>`, `useMatch()` |
+| `@table-craft/table-craft/embed` | `mountGame(element, props)` for pages without React code |
+| `@table-craft/table-craft/engine` | The framework-free three.js table (`TabletopWorld`) for custom UIs |
+| `@table-craft/table-craft/server` | Node: `node:vm` runtime, `createRoomServer`, referee (`simulate`, `validate`), balance lab (`analyzeBalance`, `sweepParameter`), view `audit`, worker-thread variants (`simulateAsync`, `analyzeBalanceAsync`) |
+| `@table-craft/table-craft/style.css` | HUD styles (themeable with `--tc-*` custom properties) |
+| `@table-craft/table-craft/game` | Types only: `/// <reference types="@table-craft/table-craft/game" />` in a game file gives autocomplete for `T`, `ctx` and the scene |
+| `@table-craft/table-craft/mcp` · `npx @table-craft/table-craft mcp` | MCP server for AI assistants; `npx tablecraft validate / simulate / audit` from the terminal |
 
 ## Documentation
 

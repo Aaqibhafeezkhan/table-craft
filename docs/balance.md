@@ -99,7 +99,7 @@ npx tablecraft balance games/tea.js --content data/tea.json --sweep content.card
 ## API
 
 ```js
-import { analyzeBalance, analyzeBalanceAsync, sweepParameter, compareReports } from 'tablecraft/server';
+import { analyzeBalance, analyzeBalanceAsync, sweepParameter, compareReports } from '@table-craft/table-craft/server';
 
 const before = analyzeBalance(oldSource, { games: 300, botMix: ['module', 'greedy'], content });
 const after = await analyzeBalanceAsync(newSource, { games: 300, botMix: ['module', 'greedy'], content }); // worker thread

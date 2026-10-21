@@ -1,6 +1,6 @@
 // tablecraft/embed — mount a full game into any DOM element without writing React yourself.
 //
-//   import { mountGame, createLocalMatch } from 'tablecraft/embed';
+//   import { mountGame, createLocalMatch } from '@table-craft/table-craft/embed';
 //   const match = createLocalMatch({ source, players: ['You', 'bot', 'bot'] });
 //   const app = mountGame(document.getElementById('table'), { client: match });
 //   app.unmount();

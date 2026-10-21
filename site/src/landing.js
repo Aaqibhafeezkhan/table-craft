@@ -26,9 +26,9 @@ async function boot() {
   if (app) return;
   start.disabled = true; start.textContent = 'Loading the table…';
   const [{ mountGame, createLocalMatch }, { default: source }] = await Promise.all([
-    import('tablecraft/embed'),
+    import('@table-craft/table-craft/embed'),
     import('../../examples/treasure-road/game.js?raw'),
-    import('tablecraft/style.css'),
+    import('@table-craft/table-craft/style.css'),
   ]);
   start.remove();
   const client = createLocalMatch({ source, players: ['Ada', 'bot'], pace: 'normal' });

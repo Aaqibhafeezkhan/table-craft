@@ -1,4 +1,4 @@
-// tablecraft/mcp — Model Context Protocol server for AI assistants (docs/mcp.md). Usually run as `npx tablecraft mcp`.
+// @table-craft/table-craft/mcp — Model Context Protocol server for AI assistants (docs/mcp.md). Usually run as `npx tablecraft mcp`.
 
 /** What a tool handler returns: text, optionally structured data, or an error. */
 export type McpToolResult = string | { text: string; data?: unknown; isError?: boolean };

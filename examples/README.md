@@ -16,5 +16,5 @@
 Try any game without writing UI: open the playground (`npm run site:dev` → `/play.html`) or run the referee:
 
 ```bash
-node -e "import('tablecraft/server').then(async (t) => console.log(t.summarize(t.simulate(require('fs').readFileSync('examples/treasure-road/game.js', 'utf8'), { games: 100 }))))"
+node -e "import('@table-craft/table-craft/server').then(async (t) => console.log(t.summarize(t.simulate(require('fs').readFileSync('examples/treasure-road/game.js', 'utf8'), { games: 100 }))))"
 ```

@@ -3,7 +3,7 @@
 Inside a game module, `T` is a global with small, well-tested helpers. They are pure (except where noted, they mutate
 the arrays/objects you pass) and use the `random` you give them, so games stay deterministic.
 
-Outside modules (tests, tools) import the same kit: `import { T } from 'tablecraft'`.
+Outside modules (tests, tools) import the same kit: `import { T } from '@table-craft/table-craft'`.
 
 This page covers the basics. For common board-game mechanics — passing, phases, auctions, drafting, markets, deck
 building, worker placement, majorities, set collection, tricks, bags and bust odds, hidden roles and more — see

@@ -1,6 +1,6 @@
 // tablecraft/mcp — Model Context Protocol server that lets AI assistants write, check and debug Tablecraft games.
 //
-//   npx tablecraft mcp            (stdio; add it to Claude Code / Claude Desktop / any MCP client)
+//   npx @table-craft/table-craft mcp            (stdio; add it to Claude Code / Claude Desktop / any MCP client)
 import { McpServer } from './protocol.js';
 import {
   TEMPLATES, docList, readDoc, readTemplate, readSource, readContent, json, summarizeView, auditViews,

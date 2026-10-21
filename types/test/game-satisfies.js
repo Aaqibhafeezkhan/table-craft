@@ -1,12 +1,12 @@
 // @ts-check
-/// <reference types="tablecraft/game" />
+/// <reference types="@table-craft/table-craft/game" />
 /* global T, clone */
 // The stricter JS form: `@satisfies` also checks what functions return (view() scenes, endIf() results), which a
 // plain `@type` on `module.exports` only uses for autocomplete. Lines marked `@ts-expect-error` must be rejected.
 
-/** @typedef {{ order: string[], points: Record<string, number>, bids: import('tablecraft/game').SecretSlot<number>, round: number }} State */
+/** @typedef {{ order: string[], points: Record<string, number>, bids: import('@table-craft/table-craft/game').SecretSlot<number>, round: number }} State */
 
-module.exports = /** @satisfies {import('tablecraft/game').GameModule<State>} */ ({
+module.exports = /** @satisfies {import('@table-craft/table-craft/game').GameModule<State>} */ ({
   meta: { name: 'Sealed Points', minPlayers: 2, maxPlayers: 5 },
 
   setup({ players }) {

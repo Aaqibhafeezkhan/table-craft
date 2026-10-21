@@ -1,6 +1,6 @@
 // Globals of the game-module sandbox: the rules kit `T`, `clone`, `module` / `exports` and a silent `console`.
-// Pulled in by `/// <reference types="tablecraft/game" />` at the top of a game file — never by the other entry points,
-// so hosts importing `tablecraft` don't get a global `T`.
+// Pulled in by `/// <reference types="@table-craft/table-craft/game" />` at the top of a game file — never by the other entry points,
+// so hosts importing `@table-craft/table-craft` don't get a global `T`.
 //
 // `module`, `exports` and `console` are declared so that they merge with @types/node and lib.dom when those are present.
 
@@ -21,7 +21,7 @@ declare var console: Console;
 
 /** The `module` object of a game file (merges with @types/node's `NodeModule`). */
 interface NodeModule {
-  /** Assign your game module here; annotate it with `@type {import('tablecraft/game').GameModule<State>}`. */
+  /** Assign your game module here; annotate it with `@type {import('@table-craft/table-craft/game').GameModule<State>}`. */
   exports: any;
 }
 

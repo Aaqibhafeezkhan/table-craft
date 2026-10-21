@@ -30,7 +30,7 @@ for (const template of ['dice', 'cards', 'multiplayer']) {
 
     const pkg = JSON.parse(fs.readFileSync(path.join(dir, 'package.json'), 'utf8'));
     assert.equal(pkg.name, name);
-    for (const d of ['tablecraft', 'react', 'react-dom', 'three', 'cannon-es']) assert.ok(pkg.dependencies[d], `dependency ${d}`);
+    for (const d of ['@table-craft/table-craft', 'react', 'react-dom', 'three', 'cannon-es']) assert.ok(pkg.dependencies[d], `dependency ${d}`);
     for (const s of ['dev', 'build', 'preview', 'validate', 'simulate', 'balance']) assert.ok(pkg.scripts[s], `script ${s}`);
     if (template === 'multiplayer') assert.ok(pkg.scripts.server && pkg.dependencies['socket.io'] && pkg.dependencies['socket.io-client']);
     assert.match(fs.readFileSync(path.join(dir, 'README.md'), 'utf8'), new RegExp(`^# ${name}`));

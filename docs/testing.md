@@ -26,7 +26,7 @@ action, a random non-free action is used instead — a weak bot is still a worki
 ## Referee
 
 ```js
-import { simulate, summarize, validate, simulateAsync } from 'tablecraft/server';
+import { simulate, summarize, validate, simulateAsync } from '@table-craft/table-craft/server';
 
 const report = simulate(source, {
   games: 200,            // default 20
@@ -72,7 +72,7 @@ seat and first-player advantage, game length, forced decisions, lead changes, co
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
-import { simulate, summarize } from 'tablecraft/server';
+import { simulate, summarize } from '@table-craft/table-craft/server';
 
 test('rules hold over 500 games', () => {
   const rep = simulate(fs.readFileSync('games/my-game.js', 'utf8'), { games: 500 });
