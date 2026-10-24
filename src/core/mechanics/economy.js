@@ -3,23 +3,39 @@
 
 export function installEconomy(T) {
   // ------------------------------------------------------------ T.workers (worker placement)
-  // board = { spaceId: { cap, workers: [playerId, ...], blocked? } }; cap null = unlimited
+  // board = { spaceId: { cap, workers: [playerId | { playerId, workerId }, ...], blocked? } }; cap null = unlimited
   const W = {};
+  const workerPlayer = (worker) => typeof worker === 'string' ? worker : worker.playerId;
   W.board = (caps) => { const b = {}; for (const id of Object.keys(caps || {})) b[id] = { cap: caps[id] == null ? null : caps[id], workers: [] }; return b; };
   // onePerPlayer: a player may not put a second worker on the same space
   W.canPlace = (board, space, playerId, { onePerPlayer = false } = {}) => {
     const s = board[space];
-    return !!s && !s.blocked && (s.cap == null || s.workers.length < s.cap) && !(onePerPlayer && s.workers.includes(playerId));
+    return !!s && !s.blocked && (s.cap == null || s.workers.length < s.cap) && !(onePerPlayer && s.workers.some((worker) => workerPlayer(worker) === playerId));
   };
-  W.place = (board, space, playerId, opts) => { if (!W.canPlace(board, space, playerId, opts)) return false; board[space].workers.push(playerId); return true; };
+  W.place = (board, space, playerId, opts) => {
+    if (!W.canPlace(board, space, playerId, opts)) return false;
+    board[space].workers.push(opts?.worker == null ? playerId : { playerId, workerId: opts.worker });
+    return true;
+  };
   // the spaces this player may use right now
   W.available = (board, playerId, opts) => Object.keys(board).filter((id) => W.canPlace(board, id, playerId, opts));
   // spaces where this player has a worker
-  W.spaces = (board, playerId) => Object.keys(board).filter((id) => board[id].workers.includes(playerId));
-  // end of round: every worker goes home → { playerId: count }
-  W.returnAll = (board) => {
+  W.spaces = (board, playerId) => Object.keys(board).filter((id) => board[id].workers.some((worker) => workerPlayer(worker) === playerId));
+  // end of round: counts are the compatible default; ids returns tracked workers only
+  W.returnAll = (board, opts) => {
     const out = {};
-    for (const s of Object.values(board)) { for (const p of s.workers) out[p] = (out[p] || 0) + 1; s.workers = []; }
+    const ids = opts?.ids === true;
+    for (const s of Object.values(board)) {
+      for (const worker of s.workers) {
+        const playerId = workerPlayer(worker);
+        if (ids) {
+          if (typeof worker !== 'string') (out[playerId] ||= []).push(worker.workerId);
+        } else {
+          out[playerId] = (out[playerId] || 0) + 1;
+        }
+      }
+      s.workers = [];
+    }
     return out;
   };
   T.workers = W;

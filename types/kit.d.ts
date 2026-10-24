@@ -246,12 +246,20 @@ export interface PendingKit {
 
 // ------------------------------------------------------------------ economy
 
+/** A worker placement with a stable worker id. */
+export interface WorkerPlacement {
+  /** Player who owns this worker. */
+  playerId: PlayerId;
+  /** Stable worker id supplied to `T.workers.place`. */
+  workerId: string;
+}
+
 /** One worker-placement space. */
 export interface WorkerSpace {
   /** Capacity (`null` = unlimited). */
   cap: number | null;
-  /** Player ids, one per worker. */
-  workers: PlayerId[];
+  /** Player ids for untracked workers; tracked workers use `{ playerId, workerId }`. */
+  workers: Array<PlayerId | WorkerPlacement>;
   /** Closed for now. */
   blocked?: boolean;
 }
@@ -265,14 +273,18 @@ export interface WorkersKit {
   board(caps: Record<string, number | null>): WorkerBoard;
   /** Room, not blocked, and (with `onePerPlayer`) not already there? */
   canPlace(board: WorkerBoard, space: string, playerId: PlayerId, opts?: { onePerPlayer?: boolean }): boolean;
-  /** Place a worker → `true`, or `false` and nothing changes. */
-  place(board: WorkerBoard, space: string, playerId: PlayerId, opts?: { onePerPlayer?: boolean }): boolean;
+  /** Place a worker → `true`, or `false` and nothing changes. `worker` tracks a stable worker id. */
+  place(board: WorkerBoard, space: string, playerId: PlayerId, opts?: { onePerPlayer?: boolean; worker?: string }): boolean;
   /** The spaces this player may use now. */
   available(board: WorkerBoard, playerId: PlayerId, opts?: { onePerPlayer?: boolean }): string[];
   /** The spaces this player occupies. */
   spaces(board: WorkerBoard, playerId: PlayerId): string[];
-  /** Every worker goes home → `{ playerId: count }`. */
+  /** Every worker goes home → counts for both tracked and untracked workers. */
   returnAll(board: WorkerBoard): Record<PlayerId, number>;
+  /** Every worker goes home → tracked worker IDs per player; untracked workers are omitted. */
+  returnAll(board: WorkerBoard, opts: { ids: true }): Record<PlayerId, string[]>;
+  /** The count-based behavior is also available when IDs are explicitly disabled. */
+  returnAll(board: WorkerBoard, opts: { ids?: false }): Record<PlayerId, number>;
 }
 
 /** `T.track`: fame, morale, temperature tracks with milestones. */
