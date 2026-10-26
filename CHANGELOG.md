@@ -6,6 +6,7 @@ and the project uses [Semantic Versioning](https://semver.org/). Until 1.0, mino
 ## [Unreleased]
 
 ### Added
+- **Dutch auctions:** `T.auction.create` can exclude ineligible bidders, and `T.auction.decline` lowers the price after all eligible bidders decline.
 - **Area scoring:** `T.area.majority` supports `{ fewest: true }`, including zero-count players by default.
 - **Rules kit:** `T.market.refill` accepts `{ reshuffle: false }` to leave the discard pile out of the deck when refilling.
 - **Rules kit:** `T.sets.ofAKind(counts, n, kind?)` can count groups for one kind or a list of kinds.
@@ -39,6 +40,9 @@ and the project uses [Semantic Versioning](https://semver.org/). Until 1.0, mino
 - Rules kit: `T.hex` (neighbours, distance, rings, lines, canonical corner/edge keys, corner/edge graph, cell paths),
   `T.findPath` and `T.reachable`.
 - Scene checks for hex positions and link ends; `supply-lines` example and MCP template.
+
+### Changed
+- Dutch auctions: `T.auction.take` now rejects IDs not in `order`, and creating one with no participants closes it immediately.
 
 ### Fixed
 - `validate()` always passes `options.content` to `setup` (`{}` when none was given), like matches and the referee do.
