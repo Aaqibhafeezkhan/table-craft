@@ -5,7 +5,6 @@ import { useStrings } from '../i18n';
 
 export function CardCanvas({ world, item, height, maxWidth, className = '', onClick, title }) {
   const ref = useRef(null);
-  const key = item ? JSON.stringify([item.face, item.back, item.size, item.faceUp]) : '';
   useEffect(() => {
     const el = ref.current;
     if (!el || !world || !item) return;
@@ -17,7 +16,7 @@ export function CardCanvas({ world, item, height, maxWidth, className = '', onCl
     const k = maxWidth ? Math.min(1, maxWidth / (c.width / dpr)) : 1;
     c.style.height = `${Math.round(height * k)}px`; c.style.width = 'auto'; c.style.display = 'block';
     el.appendChild(c);
-  }, [world, key, height, maxWidth]); // eslint-disable-line
+  }, [world, item, height, maxWidth]);
   return <div ref={ref} className={`tc-cardcv ${onClick ? 'click' : ''} ${className}`} onClick={onClick} title={title} />;
 }
 

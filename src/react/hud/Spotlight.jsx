@@ -1,7 +1,7 @@
 // Spotlight: cards revealed / played by other players, shown one by one, large and legible. Each entry
 // stays long enough to read; pauses on hover, can be pinned, skipped with Space.
 // If the queue builds up (fast bot moves) durations shrink so it doesn't lag the table.
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { CardCanvas } from './CardCanvas';
 import { Icon } from './icons';
 import { useStrings } from '../i18n';
@@ -20,13 +20,11 @@ export default function Spotlight({ entry, world, queued, mode = 'center', scale
   const [hover, setHover] = useState(false);
   const [held, setHeld] = useState(false);
   const left = useRef(0);
-  const dur = useMemo(() => spotDuration(entry, queued, scale), [entry?.key]); // eslint-disable-line
+  const [dur] = useState(() => spotDuration(entry, queued, scale));
 
   useEffect(() => {
-    if (!entry) return;
     left.current = dur;
-    setHeld(false);
-  }, [entry?.key]); // eslint-disable-line
+  }, [dur]);
 
   useEffect(() => {
     if (!entry || hover || held) return undefined;

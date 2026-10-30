@@ -76,6 +76,16 @@ const cardItem = (id, sp) => {
   return { id, face: sp.face, back: sp.back, size: sp.size, faceUp: up && sp.face != null, tip: sp.tip };
 };
 
+function ResultDisplay({ result, players, youId, label }) {
+  const [open, setOpen] = useState(true);
+  return (
+    <>
+      {!open && <button className="tc-result-pill" onClick={() => setOpen(true)}><Icon name="trophy" size={16} /> {label}</button>}
+      {open && <ResultModal result={result} players={players} youId={youId} onClose={() => setOpen(false)} />}
+    </>
+  );
+}
+
 export default function Tabletop({ view, fx, assets, onMove, you, serverOffset = 0, result, headerExtra, pace, onPace, locale = 'en', strings, className = '', style }) {
   const S = useMemo(() => buildStrings(locale, strings), [locale, strings]);
   const wrap = useRef(null);
@@ -98,7 +108,6 @@ export default function Tabletop({ view, fx, assets, onMove, you, serverOffset =
   const [full, setFull] = useState(false);
   const [promptMin, setPromptMin] = useState(false);
   const [turnSplash, setTurnSplash] = useState(null);
-  const [resultOpen, setResultOpen] = useState(false);
   const [, force] = useState(0);
   const scene = view?.scene;
   const hud = view?.hud || {};
@@ -117,11 +126,10 @@ export default function Tabletop({ view, fx, assets, onMove, you, serverOffset =
 
   // called via ref so the world event handler sees the latest closure
   const ctx = useRef({});
-  ctx.current = { people, you, settings, hud, logOpen: settings.logOpen, S };
   const prevActive = useRef(null);
   const recentLines = useRef([]); // lines added to the log in this update (for spotlight actor/caption)
-  const moveRef = useRef(onMove); moveRef.current = onMove;
-  const spotsRef = useRef(spots); spotsRef.current = spots;
+  const moveRef = useRef(onMove);
+  const spotsRef = useRef(spots);
 
   const addLog = (entries) => {
     const list = Array.isArray(entries) ? entries : [entries];
@@ -193,7 +201,11 @@ export default function Tabletop({ view, fx, assets, onMove, you, serverOffset =
       default: return;
     }
   };
-  const onEventRef = useRef(onEvent); onEventRef.current = onEvent;
+  const onEventRef = useRef(onEvent);
+  useEffect(() => { ctx.current = { people, you, settings, hud, logOpen: settings.logOpen, S }; }, [people, you, settings, hud, S]);
+  useEffect(() => { moveRef.current = onMove; }, [onMove]);
+  useEffect(() => { spotsRef.current = spots; }, [spots]);
+  useEffect(() => { onEventRef.current = onEvent; }, [onEvent]);
 
   useEffect(() => {
     const audio = audioInstance();
@@ -219,7 +231,10 @@ export default function Tabletop({ view, fx, assets, onMove, you, serverOffset =
   }, []);
 
   // settings: persist + apply to engine
-  const set = (patch) => setSettings((s) => ({ ...s, ...patch }));
+  const set = (patch) => {
+    if (patch.spot === 'off') setSpots([]);
+    setSettings((s) => ({ ...s, ...patch }));
+  };
   useEffect(() => {
     try { localStorage.setItem(SET_KEY, JSON.stringify(settings)); } catch { /* ignore */ }
     world.current?.setAnimScale(ANIM[settings.anim] || 1);
@@ -227,8 +242,6 @@ export default function Tabletop({ view, fx, assets, onMove, you, serverOffset =
   }, [settings]);
   const firstQuality = useRef(true);
   useEffect(() => { if (firstQuality.current) { firstQuality.current = false; return; } world.current?.setQuality(settings.quality); }, [settings.quality]);
-  useEffect(() => { if (settings.spot === 'off') setSpots([]); }, [settings.spot]);
-  useEffect(() => { if (settings.logOpen) setUnread(0); }, [settings.logOpen]);
 
   useEffect(() => { world.current?.setAssets(assets); }, [assets]);
   useEffect(() => { if (world.current) world.current.serverOffset = serverOffset; }, [serverOffset]);
@@ -241,7 +254,7 @@ export default function Tabletop({ view, fx, assets, onMove, you, serverOffset =
     const prev = prevLog.current;
     prevLog.current = cur.slice();
     const myName = you?.name;
-    if (!prev) { addLog(cur.map((l) => lineEntry(l, myName))); setUnread(0); return; }
+    if (!prev) { addLog(cur.map((l) => lineEntry(l, myName))); return; }
     let j = Math.min(prev.length, cur.length);
     for (; j > 0; j--) {
       let ok = true;
@@ -264,8 +277,10 @@ export default function Tabletop({ view, fx, assets, onMove, you, serverOffset =
   useEffect(() => {
     if (meActive && !wasActive.current) {
       audioInstance().play('turn');
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- show the one-shot turn transition.
       setTurnSplash(nk());
       if (settings.autoFocus) world.current?.setCamera('me');
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- reopen the prompt for the new turn.
       setPromptMin(false);
     }
     wasActive.current = meActive;
@@ -302,12 +317,10 @@ export default function Tabletop({ view, fx, assets, onMove, you, serverOffset =
   const hadResult = useRef(!!result);
   useEffect(() => {
     if (result && !hadResult.current) {
-      setResultOpen(true);
       const r = typeof result === 'object' ? result : {};
       const won = you?.id && (Array.isArray(r.winners) ? r.winners : String(r.winner || '').split(',')).includes(you.id);
       setTimeout(() => audioInstance().play(won ? 'win' : 'gong'), 400);
     }
-    if (!result) setResultOpen(false);
     hadResult.current = !!result;
   }, [result]); // eslint-disable-line
 
@@ -320,7 +333,11 @@ export default function Tabletop({ view, fx, assets, onMove, you, serverOffset =
   const cam = (p) => world.current?.setCamera(p);
   const send = (m) => { audioInstance().play('tap'); onMove(m); };
   const toggleMute = () => { const m = !audioInstance().muted; setMuted(m); audioInstance().setMuted(m); };
-  const toggleLog = () => set({ logOpen: !ctx.current.settings.logOpen });
+  const toggleLog = () => {
+    const opening = !ctx.current.settings.logOpen;
+    if (opening) setUnread(0);
+    set({ logOpen: opening });
+  };
 
   // keyboard shortcuts
   useEffect(() => {
@@ -459,7 +476,7 @@ export default function Tabletop({ view, fx, assets, onMove, you, serverOffset =
 
       {spot && settings.spot !== 'off' && (
         // on your turn the Spotlight moves aside: the centre of the table and every click stay yours
-        <Spotlight entry={spot} world={world.current} queued={spots.length - 1} mode={meActive || hud.stage ? 'side' : settings.spot} scale={ANIM[settings.anim] || 1} onDone={spotDone} onInspect={setInspect} />
+        <Spotlight key={spot.key} entry={spot} world={world.current} queued={spots.length - 1} mode={meActive || hud.stage ? 'side' : settings.spot} scale={ANIM[settings.anim] || 1} onDone={spotDone} onInspect={setInspect} />
       )}
 
       <Stage stage={hud.stage} world={world.current} onInspect={setInspect} />
@@ -506,8 +523,7 @@ export default function Tabletop({ view, fx, assets, onMove, you, serverOffset =
       )}
       {hover?.spec?.tip && !hoverCard && !hoverOther && !inspect && <div className="tc-tip" style={{ left: hover.x + 16, top: hover.y + 16 }}>{hover.spec.tip}</div>}
 
-      {result && !resultOpen && <button className="tc-result-pill" onClick={() => setResultOpen(true)}><Icon name="trophy" size={16} /> {S.result}</button>}
-      {result && resultOpen && <ResultModal result={result} players={playersList.length ? playersList : [...people.values()]} youId={you?.id} onClose={() => setResultOpen(false)} />}
+      {result && <ResultDisplay key={JSON.stringify(result)} result={result} players={playersList.length ? playersList : [...people.values()]} youId={you?.id} label={S.result} />}
       {inspect && <CardInspector world={world.current} item={inspect} onClose={() => setInspect(null)} />}
     </div>
     </StringsContext.Provider>

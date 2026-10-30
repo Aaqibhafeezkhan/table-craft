@@ -41,7 +41,8 @@ export default function GameLog({ entries, players, world, onInspect, onClose })
   };
 
   // stays pinned to bottom when at bottom (even if late thumbnails grow the height); released when user scrolls up
-  const stuckRef = useRef(true); stuckRef.current = stuck;
+  const stuckRef = useRef(true);
+  useEffect(() => { stuckRef.current = stuck; }, [stuck]);
   const auto = useRef(0);
   const toBottom = () => { const el = box.current; if (el) { auto.current = performance.now(); el.scrollTop = el.scrollHeight; } };
   useEffect(() => { if (stuck) toBottom(); }, [list.length, stuck]);
